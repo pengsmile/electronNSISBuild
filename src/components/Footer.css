@@ -1,0 +1,84 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 10px 20px;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  bottom: 40px; /* 位于底部蓝条上方 */
+  z-index: 10;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.nav-btn:hover {
+  background-color: #01579b;
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+.nav-icon {
+  font-size: 16px;
+}
+
+.app-footer {
+  height: 40px;
+  background-color: #1e88e5; /* 保持与标题栏一致的蓝色 */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 13px;
+  user-select: none;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-clock-icon {
+  font-size: 14px;
+}
+
+.footer-time {
+  font-family: monospace; /* 时间建议使用等宽字体，防止跳动 */
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-company {
+  font-weight: bold;
+  font-size: 14px;
+}

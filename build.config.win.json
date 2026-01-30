@@ -1,0 +1,44 @@
+{
+    "appId": "com.cnp.desktop",
+    "productName": "CNP",
+    "files": ["dist/**/*", "build/**/*", "dist-electron/**/*", "public/**/*", "node_modules/**/*"],
+    "directories": {
+        "buildResources": "public",
+        "output": "nsis/FilesToInstall/"
+    },
+    "protocols": [
+        {
+            "name": "cnp-dt",
+            "schemes": [
+                "cnp-dt"
+            ]
+        }
+    ],
+    "publish": [
+        {
+            "provider": "generic",
+            "url": "https://publiclex.oss-cn-hangzhou.aliyuncs.com/autoupdate"
+        }
+    ],
+    "extraResources": [],
+    "nsis": {
+        "oneClick": false,
+        "perMachine": true,
+        "allowElevation": true,
+        "allowToChangeInstallationDirectory": true,
+        "warningsAsErrors": false,
+        "installerIcon": "logo.png",
+        "installerHeader": "logo.png",
+        "installerHeaderIcon": "logo.png"
+    },
+    "win": {
+        "icon": "logo.ico",
+        "target": "dir",
+        "asarUnpack": [
+            "**/node_modules/axios/**/*",
+            "**/node_modules/progress-stream/**/*",
+            "**/node_modules/path/**/*",
+            "**/node_modules/fs/**/*"
+        ]
+    }
+}

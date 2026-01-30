@@ -1,0 +1,115 @@
+.title-bar {
+  height: 40px;
+  background-color: #1e88e5; /* 蓝色背景 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  -webkit-app-region: drag; /* 默认整个标题栏可拖拽 */
+  color: white;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  width: 150px; /* 固定宽度，方便中间居中 */
+}
+
+.title-bar-logo {
+  height: 30px;
+}
+
+.title-bar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-bar-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.title-bar-right {
+  display: flex;
+  justify-content: flex-end;
+  width: 150px; /* 与左侧对应，确保中间真正居中 */
+  -webkit-app-region: no-drag; /* 按钮区域禁止拖拽 */
+}
+
+.title-bar-controls {
+  display: flex;
+  height: 100%;
+}
+
+.control-button {
+  width: 54px; /* 增加宽度，更适合触摸 */
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: default;
+  color: white;
+  transition: background-color 0.2s;
+  position: relative;
+  overflow: hidden;
+  touch-action: none; /* 禁止按钮上的系统手势 */
+}
+
+.control-button:focus,
+.control-button:active {
+  outline: none;
+}
+
+/* 波纹动效实现 */
+.control-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.control-button:active::after {
+  animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(10, 10);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(30, 30);
+  }
+}
+
+.control-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.control-button.close:hover {
+  background-color: #e81123;
+  color: white;
+}
+
+.control-button svg {
+  pointer-events: none;
+}

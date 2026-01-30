@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Windows>
+<!-- 完成 -->
+ <VerticalLayout >
+    <VerticalLayout width="480" height="250" roundcorner="5,5" bkimage="file='form\pic.png'">
+	
+	</VerticalLayout>
+	<VerticalLayout bkcolor="#FFFFFFFF" >
+	<Button name="btnRun" cursor="hand" padding="95,50,0,30" width="290" height="40" normalimage="form\btn_installation_normal.png" hotimage="form\btn_installation_hovered.png" pushedimage="form\btn_installation_hovered.png" disabledimage="form\btn_installation_disable.png" font="6" textcolor="0xffffffff" disabledtextcolor="0xffffffff" margin="0,10,0,0" text="" />
+	</VerticalLayout>
+ </VerticalLayout>
+</Windows>

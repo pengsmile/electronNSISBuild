@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="360,180" sizebox="0,0,0,0" mininfo="360,180" maxinfo="360,180" caption="0,0,0,30" richeditcorner="10,10,10,10">
+  
+  <Font id="0" name="微软雅黑" size="13" bold="false" default="true" shared="true" />
+  	<Font id="1" name="微软雅黑" size="14" bold="true" shared="true" />
+  <VerticalLayout width="360" height="180" bkcolor="#FF161616" inset="1,1,1,1" bordersize="1" bordercolor="0xFF161616">
+  	<HorizontalLayout height="30" bkcolor="0xFF161616">
+		<HorizontalLayout float="true" inset="0,5,5,0" pos="0,0,360,26" >
+			<Container />
+			<Button name="msgBtnClose" width="20" height="20" normalimage="file='public\button\btn_wnd_white_close.png'" hotimage="file='public\button\btn_wnd_close_hovered.png'" pushedimage="file='public\button\btn_wnd_close_pushed.png'" />
+		</HorizontalLayout>
+    </HorizontalLayout>
+  	<Container />
+  	
+  	<HorizontalLayout height="50">
+  		<Container width="40" />
+  		<VerticalLayout width="40" >
+			<Container  />
+				<Label bkimage="msgWarning.png"  height="24"  width="24"/>
+			<Container />
+		</VerticalLayout>
+		<Container width="5" />
+		<Text name="lblMsg" valign="vcenter" align="left" textcolor="0xFFc6c6c6" showhtml="true"/>
+		<Container width="20" />
+  	</HorizontalLayout>
+  	
+  	<Container />
+  	
+    <VerticalLayout height="50">
+   	 <Container height="12" />
+   	 <HorizontalLayout height="30" >
+   		<Container />
+		<Class name="btn_global_green_80x30" value="font=&quot;7&quot; normaltextcolor=&quot;white&quot; normalimage=&quot;file='../public/button/btn_global_green_80x30_normal.png'&quot; hotimage=&quot;file='../public/button/btn_global_green_80x30_hovered.png'&quot; pushedimage=&quot;file='../public/button/btn_global_green_80x30_pushed.png'&quot; disabledimage=&quot;file='../public/button/btn_global_green_80x30_normal.png' fade='80'&quot;"/>
+      	<Button name="btnOK" font="1" text=""  textcolor="#FFFFFFFF" normalimage="file='public/button/btn_yes_normal.png'" pushedimage="file='public/button/btn_yes_press.png'" hotimage="file='public/button/btn_yes_hovered.png'" width="80" height="30" />
+      	<Control width="10"/>
+		<HorizontalLayout name="hlCancel" visible="false" width="88">
+			<Button name="msgBtnCancel" font="1" text=""  textcolor="#FFFFFFFF" normalimage="file='public/button/btn_no_normal.png'" pushedimage="file='public/button/btn_no_press.png'" hotimage="file='public/button/btn_no_hovered.png'" width="80" height="30"  />
+		</HorizontalLayout>
+	 	<Container width="20" />
+     </HorizontalLayout>
+    </VerticalLayout>
+	  
+  </VerticalLayout>
+</Window>
