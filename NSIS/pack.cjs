@@ -3,6 +3,7 @@ const argv = require('minimist')(process.argv.slice(2))._;
 const fs = require('fs');
 const path = require('path');
 const config = require('../appInfo.json');
+const appPackage = require('../package.json');
 
 // 使用 path.join 确保路径在不同系统下都能正确解析
 const winUnpackedPath = path.join(__dirname, 'FilesToInstall', 'win-unpacked');
@@ -11,6 +12,8 @@ const distResourcesPath = path.resolve(__dirname, '..', 'dist', 'resources');
 
 config.APPLICATION_SIZE = parseInt(geFileList(winUnpackedPath) / 1024 / 1024 + 1);
 config.LANGUAGE_CODE = argv[0]?.toLowerCase() || 'cn';
+config.PRODUCT_VERSION = appPackage.version;
+config.INSTALL_OUTPUT_NAME = `${config.PRODUCT_NAME}_Setup_${appPackage.version}.exe`;
 
 let stdout = '';
 for (const key in config) {

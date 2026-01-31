@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface MenuItem {
@@ -10,6 +10,15 @@ interface MenuItem {
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [updateStatus, setUpdateStatus] = useState('');
+  const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
+  type UpdateCheckResult = {
+    currentVersion: string
+    latestVersion: string
+    hasUpdate: boolean
+    url?: string
+    notes?: string
+  }
 
   const menuItems: MenuItem[] = [
     { id: '1', title: '设备绑定', icon: '🔗', path: '/device-binding' },
@@ -30,8 +39,66 @@ const Home: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const handleProgress = (_event: unknown, data: { receivedBytes: number; totalBytes: number }) => {
+      if (!data.totalBytes) {
+        setDownloadProgress(null);
+        return;
+      }
+      const percent = Math.min(100, Math.round((data.receivedBytes / data.totalBytes) * 100));
+      setDownloadProgress(percent);
+    };
+    const handleComplete = () => {
+      setDownloadProgress(100);
+    };
+    window.ipcRenderer.on('update-download-progress', (_event, ...args) => {
+      const data = args[0] as { receivedBytes: number; totalBytes: number };
+      handleProgress(_event, data);
+    });
+    window.ipcRenderer.on('update-download-complete', handleComplete);
+    return () => {
+      window.ipcRenderer.off('update-download-progress', (_event, ...args) => {
+        const data = args[0] as { receivedBytes: number; totalBytes: number };
+        handleProgress(_event, data);
+      });
+      window.ipcRenderer.off('update-download-complete', handleComplete);
+    };
+  }, []);
+
+  const handleCheckUpdate = async () => {
+    setUpdateStatus('正在检查更新...');
+    setDownloadProgress(null);
+    try {
+      const result = await window.ipcRenderer.invoke<UpdateCheckResult>('update-check');
+      if (!result.hasUpdate) {
+        setUpdateStatus(`已是最新版本 ${result.currentVersion || ''}`.trim());
+        return;
+      }
+      const confirmed = window.confirm(`发现新版本 ${result.latestVersion}，是否下载并安装？`);
+      if (!confirmed) {
+        setUpdateStatus(`已发现新版本 ${result.latestVersion}`);
+        return;
+      }
+      setUpdateStatus('下载中...');
+      await window.ipcRenderer.invoke('update-download');
+      setUpdateStatus('下载完成，正在静默升级...');
+      await window.ipcRenderer.invoke('update-install');
+    } catch (error) {
+      setUpdateStatus('更新失败');
+    }
+  };
+
   return (
     <div className="home-page">
+      <div className="update-bar">
+        <button className="update-button" onClick={handleCheckUpdate}>
+          检查更新1.1.0
+        </button>
+        {updateStatus && <span className="update-status">{updateStatus}</span>}
+        {downloadProgress !== null && (
+          <span className="update-progress">{downloadProgress}%</span>
+        )}
+      </div>
       <div className="menu-grid">
         {menuItems.map((item) => (
           <div key={item.id} className="menu-card" onClick={() => handleMenuClick(item)}>
@@ -49,8 +116,9 @@ const Home: React.FC = () => {
           padding: 40px;
           box-sizing: border-box;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
           align-items: center;
+          gap: 24px;
         }
 
         .menu-grid {
@@ -107,6 +175,34 @@ const Home: React.FC = () => {
           font-size: 18px;
           font-weight: bold;
           color: #333;
+        }
+
+        .update-bar {
+          width: 100%;
+          max-width: 1200px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .update-button {
+          border: none;
+          padding: 8px 16px;
+          border-radius: 6px;
+          background: #1677ff;
+          color: #fff;
+          cursor: pointer;
+          font-size: 14px;
+        }
+
+        .update-button:hover {
+          background: #4096ff;
+        }
+
+        .update-status,
+        .update-progress {
+          font-size: 14px;
+          color: #555;
         }
       `}</style>
     </div>

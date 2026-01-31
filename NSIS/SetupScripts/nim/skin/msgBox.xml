@@ -7,7 +7,8 @@
   	<HorizontalLayout height="30" bkcolor="0xFF161616">
 		<HorizontalLayout float="true" inset="0,5,5,0" pos="0,0,360,26" >
 			<Container />
-			<Button name="msgBtnClose" width="20" height="20" normalimage="file='public\button\btn_wnd_white_close.png'" hotimage="file='public\button\btn_wnd_close_hovered.png'" pushedimage="file='public\button\btn_wnd_close_pushed.png'" />
+			<!-- <Button name="msgBtnClose" width="20" height="20" normalimage="file='public\button\btn_wnd_white_close.png'" hotimage="file='public\button\btn_wnd_close_hovered.png'" pushedimage="file='public\button\btn_wnd_close_pushed.png'" /> -->
+			<Button name="msgBtnClose" width="29" height="26" normalimage="file='close1.png' source='0,0,29,26'" hotimage="file='close1.png' source='0,26,29,52'" pushedimage="file='close1.png' source='0,52,29,78'" />
 		</HorizontalLayout>
     </HorizontalLayout>
   	<Container />
